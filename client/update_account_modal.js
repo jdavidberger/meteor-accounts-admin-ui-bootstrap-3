@@ -21,7 +21,23 @@ Template.updateAccountModalInner.helpers({
 	userInScope: function() {
 		return Session.get('userInScope');
 	},
+    rolesList: function() {
+		var roles = this.roles
+        if(roles === undefined || roles instanceof Array)
+            return roles;
 
+        var rtn = []
+        Object.keys(roles).forEach(function(k){
+            roles[k].forEach(function(r) {
+                var label = r;
+                if(k !== Roles.GLOBAL_GROUP) {
+                    label = label + " (" + k + ")"
+                }
+                rtn.push(label)
+            })
+        })
+        return rtn
+    },
 	unsetRoles: function() {
 		var allRoles = _.pluck(Roles.getAllRoles().fetch(), "name");
 		if (!this.roles)

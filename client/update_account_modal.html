@@ -20,9 +20,9 @@
           <input data-user-id="{{_id}}" class="form-control admin-user-info" name="username" value="{{username}}" placeholder="Enter new user name">
         </div>
 			</div>
-			{{#if roles}}
+			{{#if rolesList}}
 				<ul class="list-group">
-					{{#each roles}}
+					{{#each rolesList}}
 						<li class="list-group-item">
 							<button data-user-id="{{../_id}}" class="btn btn-danger btn-xs remove-role" type="button">Remove</button>
 							<span class="pull-right">{{this}}</span>

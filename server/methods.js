@@ -13,10 +13,11 @@ Meteor.methods({
 
 	addUserRole: function(userId, role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+        var group = user.roles instanceof Array ? undefined : Roles.GLOBAL_GROUP
+		if (!user || !Roles.userIsInRole(user, ['admin'], group))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
-		if (user._id == userId)
+		if (user._id === userId)
 			throw new Meteor.Error(422, 'You can\'t update yourself.');
 
 		// handle invalid role
@@ -24,16 +25,17 @@ Meteor.methods({
 			throw new Meteor.Error(422, 'Role ' + role + ' does not exist.');
 
 		// handle user already has role
-		if (Roles.userIsInRole(userId, role))
+		if (Roles.userIsInRole(userId, role, group))
 			throw new Meteor.Error(422, 'Account already has the role ' + role);
 
 		// add the user to the role
-		Roles.addUsersToRoles(userId, role);
+		Roles.addUsersToRoles(userId, role, group);
 	},
 
 	removeUserRole: function(userId, role) {
 		var user = Meteor.user();
-		if (!user || !Roles.userIsInRole(user, ['admin']))
+        var group = user.roles instanceof Array ? undefined : Roles.GLOBAL_GROUP
+		if (!user || !Roles.userIsInRole(user, ['admin'], group))
 			throw new Meteor.Error(401, "You need to be an admin to update a user.");
 
 		if (user._id == userId)
@@ -44,10 +46,10 @@ Meteor.methods({
 			throw new Meteor.Error(422, 'Role ' + role + ' does not exist.');
 
 		// handle user already has role
-		if (!Roles.userIsInRole(userId, role))
+		if (!Roles.userIsInRole(userId, role, group))
 			throw new Meteor.Error(422, 'Account does not have the role ' + role);
 
-		Roles.removeUsersFromRoles(userId, role);
+		Roles.removeUsersFromRoles(userId, role, group);
 	},
 
 	addRole: function(role) {
