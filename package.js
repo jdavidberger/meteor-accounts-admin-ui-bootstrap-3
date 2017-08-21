@@ -1,11 +1,11 @@
 Package.describe({
-  summary: "A roles based account management system using bootstrap 3",
-  version: "0.4.1",
-  name: "jdavidberger:accounts-admin-ui",
-  git: "https://github.com/jdavidberger/meteor-accounts-admin-ui-bootstrap-3.git"
+  summary: 'A roles based account management system using bootstrap 3',
+  version: '0.4.1',
+  name: 'jdavidberger:accounts-admin-ui',
+  git: 'https://github.com/jdavidberger/meteor-accounts-admin-ui-bootstrap-3.git',
 });
 
-Package.onUse(function (api) {
+Package.onUse(function(api) {
 	api.versionsFrom('1.2.1');
 	api.use('templating', 'client');
 	api.use('apinf:first-admin@0.1.2', 'server');
@@ -15,7 +15,7 @@ Package.onUse(function (api) {
 		'kurounin:pagination-blaze@1.0.2',
 		'session',
 		'twbs:bootstrap@3.3.6',
-		'underscore'
+		'underscore',
 	]);
 
 	// Add client & server files
@@ -34,13 +34,13 @@ Package.onUse(function (api) {
 		'client/update_account_modal.js',
 		'client/update_roles_modal.html',
 		'client/update_roles_modal.js',
-		'style/style.css'
+		'style/style.css',
 	], 'client');
 
 	// Add server files
 	api.addFiles([
 		'server/methods.js',
 		'server/publish.js',
-		'server/startup.js'
+		'server/startup.js',
 	], 'server');
 });

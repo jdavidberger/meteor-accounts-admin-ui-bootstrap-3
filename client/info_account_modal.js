@@ -1,13 +1,13 @@
 Template.infoAccountModalInner.helpers({
-	email: function () {
+	email: function() {
 		if (this.emails && this.emails.length)
-			return this.emails[0].address;
+			{return this.emails[0].address;}
 
 		if (this.services) {
-			//Iterate through services
-			for (var serviceName in this.services) {
-				var serviceObject = this.services[serviceName];
-				//If an 'id' isset then assume valid service
+			// Iterate through services
+			for (let serviceName in this.services) {
+				let serviceObject = this.services[serviceName];
+				// If an 'id' isset then assume valid service
 				if (serviceObject.id) {
 					if (serviceObject.email) {
 						return serviceObject.email;
@@ -15,7 +15,7 @@ Template.infoAccountModalInner.helpers({
 				}
 			}
 		}
-		return "";
+		return '';
 	},
 
 	userInScope: function() {
@@ -23,12 +23,12 @@ Template.infoAccountModalInner.helpers({
 	},
 
 	rolePairs: function() {
-		var pairs = [];
+		let pairs = [];
 		if (!this.roles)
-			pairs.push({key: 'Roles', value: 'None'});
+			{pairs.push({key: 'Roles', value: 'None'});}
 
-		for (var role in this.roles) {
-			var r = this.roles[role];
+		for (let role in this.roles) {
+			let r = this.roles[role];
 			if (role === '0') {
 				pairs.push({key: 'Roles', value: r});
 			} else {
@@ -36,5 +36,5 @@ Template.infoAccountModalInner.helpers({
 			}
 		}
 		return pairs;
-	}
+	},
 });

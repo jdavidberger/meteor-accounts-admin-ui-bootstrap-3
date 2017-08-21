@@ -1,46 +1,46 @@
 Template.accountsAdmin.helpers({
     niceDisplay: function(roles) {
-      if(roles === undefined || roles instanceof Array)
-        return roles;
+      if (roles === undefined || roles instanceof Array)
+        {return roles;}
 
-      var rtn = []
-        Object.keys(roles).forEach(function(k){
+      let rtn = [];
+        Object.keys(roles).forEach(function(k) {
           roles[k].forEach(function(r) {
-            var label = r;
-            if(k !== Roles.GLOBAL_GROUP) {
-              label = label + " (" + k + ")"
+            let label = r;
+            if (k !== Roles.GLOBAL_GROUP) {
+              label = label + ' (' + k + ')'
             }
-            rtn.push(label)
-          })
-        })
-        return rtn
+            rtn.push(label);
+          });
+        });
+        return rtn;
     },
   currentItems: function() {
     // Get number of current page
-    var currentPage = Template.instance().pagination.currentPage();
+    let currentPage = Template.instance().pagination.currentPage();
     // Get number of per page
-    var perPage = Template.instance().pagination.perPage();
+    let perPage = Template.instance().pagination.perPage();
     // Get number of total items
-    var totalItems = Template.instance().pagination.totalItems();
+    let totalItems = Template.instance().pagination.totalItems();
     // Compute right side of border for current items order
-    var rightSide = currentPage * perPage > totalItems ? totalItems : currentPage * perPage;
+    let rightSide = currentPage * perPage > totalItems ? totalItems : currentPage * perPage;
     // Compute left side of border for current items order. It can be zero if no search result is.
-    var leftSide = rightSide > 0 ? 1 + perPage * (currentPage - 1) : 0;
+    let leftSide = rightSide > 0 ? 1 + perPage * (currentPage - 1) : 0;
     return leftSide + ' - ' + rightSide;
   },
   totalItems: function() {
     // Return number of all items
     return Template.instance().pagination.totalItems();
   },
-  email: function () {
+  email: function() {
     if (this.emails && this.emails.length)
-      return this.emails[0].address;
+      {return this.emails[0].address;}
 
     if (this.services) {
-      //Iterate through services
-      for (var serviceName in this.services) {
-        var serviceObject = this.services[serviceName];
-        //If an 'id' isset then assume valid service
+      // Iterate through services
+      for (let serviceName in this.services) {
+        let serviceObject = this.services[serviceName];
+        // If an 'id' isset then assume valid service
         if (serviceObject.id) {
           if (serviceObject.email) {
             return serviceObject.email;
@@ -48,33 +48,33 @@ Template.accountsAdmin.helpers({
         }
       }
     }
-    return "";
+    return '';
   },
   searchFilter: function() {
-    return Session.get("userFilter");
+    return Session.get('userFilter');
   },
   myself: function(userId) {
     return Meteor.userId() === userId;
   },
-  templatePagination: function () {
+  templatePagination: function() {
     // Get reference of pagination
     return Template.instance().pagination;
   },
-  users: function () {
+  users: function() {
     // Get reference of pagination
-    var pagination = Template.instance().pagination;
+    let pagination = Template.instance().pagination;
     // Get
-    var userFilter = Session.get("userFilter");
+    let userFilter = Session.get('userFilter');
     // Set empty filter on default
-    var filter = {};
+    let filter = {};
     // If user try to find something, edit filter
-    if(!!userFilter) {
+    if (!!userFilter) {
       filter = {
         $or: [
-          { username: { $regex: userFilter, $options: 'i' } },
-          { 'emails.address': { $regex: userFilter, $options: 'i' } }
-        ]
-      }
+          {username: {$regex: userFilter, $options: 'i'}},
+          {'emails.address': {$regex: userFilter, $options: 'i'}},
+        ],
+      };
     }
     // Apply filter for selection
     pagination.filters(filter);
@@ -90,14 +90,14 @@ Template.accountsAdmin.onCreated(function() {
     // Count of records in table
     perPage: 25,
     // Set sort
-    sort: { emails: 1 }
+    sort: {emails: 1},
   });
 });
 
 // search no more than 2 times per second
-var setUserFilter = _.throttle(function(template) {
-  var search = template.find(".search-input-filter").value;
-  Session.set("userFilter", search);
+let setUserFilter = _.throttle(function(template) {
+  let search = template.find('.search-input-filter').value;
+  Session.set('userFilter', search);
 }, 500);
 
 Template.accountsAdmin.events({
@@ -116,18 +116,18 @@ Template.accountsAdmin.events({
 
   'click .glyphicon-pencil': function(event, template) {
     Session.set('userInScope', this);
-  }
+  },
 });
 
 Template.accountsAdmin.onRendered(function() {
-  var searchElement = document.getElementsByClassName('search-input-filter');
-  if(!searchElement)
-    return;
-  var filterValue = Session.get("userFilter");
+  let searchElement = document.getElementsByClassName('search-input-filter');
+  if (!searchElement)
+    {return;}
+  let filterValue = Session.get('userFilter');
 
-  var pos = 0;
+  let pos = 0;
   if (filterValue)
-    pos = filterValue.length;
+    {pos = filterValue.length;}
 
   searchElement[0].focus();
   searchElement[0].setSelectionRange(pos, pos);

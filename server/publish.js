@@ -1,4 +1,4 @@
-Meteor.publish('roles', function (){
+Meteor.publish('roles', function() {
 	return Meteor.roles.find({});
 });
 
