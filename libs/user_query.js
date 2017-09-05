@@ -1,7 +1,7 @@
 filteredUserQuery = function(userId, filter) {
 	// if not an admin user don't show any other user
 	if (!Roles.userIsInRole(userId, ['admin'])) {
-return Meteor.users.find(userId);
+return Meteor.users.find(userId)
 }
 
 	if (!!filter) {
@@ -11,9 +11,9 @@ return Meteor.users.find(userId);
 				{username: {$regex: filter, $options: 'i'}},
 				{'emails.address': {$regex: filter, $options: 'i'}},
 			],
-		}, {sort: {emails: 1}});
+		}, {sort: {emails: 1}})
 	} else {
-		users = Meteor.users.find({}, {sort: {emails: 1}});
+		users = Meteor.users.find({}, {sort: {emails: 1}})
 	}
-	return users;
-};
+	return users
+}

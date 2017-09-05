@@ -1,50 +1,52 @@
+'use strict'
+
 Template.updateRolesModalInner.helpers({
 	roles: function() {
-		return Roles.getAllRoles();
+		return Roles.getAllRoles()
 	},
 	adminRole: function() {
-		return this.name === 'admin';
+		return this.name === 'admin'
 	},
-});
+})
 
 Template.updateRolesModalInner.events({
 	'click .add-role': function(event, template) {
-		let role = template.find('.add-role-input').value;
+		let role = template.find('.add-role-input').value
 		Meteor.call('addRole', role, function(error) {
 			if (error) {
 				// optionally use a meteor errors package
 				if (typeof Errors === 'undefined')
-					{Log.error('Error: ' + error.reason);}
+					{Log.error('Error: ' + error.reason)}
 				else {
-					Errors.throw(error.reason);
+					Errors.throw(error.reason)
 				}
 			}
-			template.find('.add-role-input').value = '';
-		});
+			template.find('.add-role-input').value = ''
+		})
 	},
 
 	'click .remove-role': function(event, template) {
-		let role = this.name;
+		let role = this.name
 
 		Meteor.call('removeRole', role, function(error) {
 			if (error) {
 				// optionally use a meteor errors package
 				if (typeof Errors === 'undefined')
-					{Log.error('Error: ' + error.reason);}
+					{Log.error('Error: ' + error.reason)}
 				else {
-					Errors.throw(error.reason);
+					Errors.throw(error.reason)
 				}
 			}
-		});
+		})
 	},
 
 	'keyup .add-role-input': function(event, template) {
-		let buttonElement = template.find('.add-role');
-		let role = template.find('.add-role-input').value;
+		let buttonElement = template.find('.add-role')
+		let role = template.find('.add-role-input').value
 		if (!role) {
-			buttonElement.classList.add('disabled');
+			buttonElement.classList.add('disabled')
 		} else {
-			buttonElement.classList.remove('disabled');
+			buttonElement.classList.remove('disabled')
 		}
 
 		if (event.keyCode === 13 && !!role) {
@@ -52,14 +54,14 @@ Template.updateRolesModalInner.events({
 				if (error) {
 					// optionally use a meteor errors package
 					if (typeof Errors === 'undefined')
-						{Log.error('Error: ' + error.reason);}
+						{Log.error('Error: ' + error.reason)}
 					else {
-						Errors.throw(error.reason);
+						Errors.throw(error.reason)
 					}
 				}
-				template.find('.add-role-input').value = '';
-				buttonElement.classList.add('disabled');
-			});
+				template.find('.add-role-input').value = ''
+				buttonElement.classList.add('disabled')
+			})
 		}
 	},
-});
+})

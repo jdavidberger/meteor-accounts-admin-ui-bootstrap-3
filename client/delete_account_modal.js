@@ -1,26 +1,28 @@
+'use strict'
+
 Template.deleteAccountModalInner.helpers({
 	email: function() {
 		if (this.emails && this.emails.length)
-			{return this.emails[0].address;}
+			{return this.emails[0].address}
 
 		if (this.services) {
 			// Iterate through services
 			for (let serviceName in this.services) {
-				let serviceObject = this.services[serviceName];
+				let serviceObject = this.services[serviceName]
 				// If an 'id' isset then assume valid service
 				if (serviceObject.id) {
 					if (serviceObject.email) {
-						return serviceObject.email;
+						return serviceObject.email
 					}
 				}
 			}
 		}
-		return '';
+		return ''
 	},
 	userInScope: function() {
-		return Session.get('userInScope');
+		return Session.get('userInScope')
 	},
-});
+})
 
 Template.deleteAccountModalInner.events({
 	'click .btn-danger': function(event, template) {
@@ -28,12 +30,12 @@ Template.deleteAccountModalInner.events({
 			if (error) {
 				// optionally use a meteor errors package
 				if (typeof Errors === 'undefined')
-					{Log.error('Error: ' + error.reason);}
+					{Log.error('Error: ' + error.reason)}
 				else {
-					Errors.throw(error.reason);
+					Errors.throw(error.reason)
 				}
 			}
-			$('#deleteaccount').modal('hide');
-		});
+			$('#deleteaccount').modal('hide')
+		})
 	},
-});
+})

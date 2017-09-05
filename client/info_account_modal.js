@@ -1,40 +1,42 @@
+'use strict'
+
 Template.infoAccountModalInner.helpers({
 	email: function() {
 		if (this.emails && this.emails.length)
-			{return this.emails[0].address;}
+			{return this.emails[0].address}
 
 		if (this.services) {
 			// Iterate through services
 			for (let serviceName in this.services) {
-				let serviceObject = this.services[serviceName];
+				let serviceObject = this.services[serviceName]
 				// If an 'id' isset then assume valid service
 				if (serviceObject.id) {
 					if (serviceObject.email) {
-						return serviceObject.email;
+						return serviceObject.email
 					}
 				}
 			}
 		}
-		return '';
+		return ''
 	},
 
 	userInScope: function() {
-		return Session.get('userInScope');
+		return Session.get('userInScope')
 	},
 
 	rolePairs: function() {
-		let pairs = [];
+		let pairs = []
 		if (!this.roles)
-			{pairs.push({key: 'Roles', value: 'None'});}
+			{pairs.push({key: 'Roles', value: 'None'})}
 
 		for (let role in this.roles) {
-			let r = this.roles[role];
+			let r = this.roles[role]
 			if (role === '0') {
-				pairs.push({key: 'Roles', value: r});
+				pairs.push({key: 'Roles', value: r})
 			} else {
-				pairs.push({key: '-', value: r});
+				pairs.push({key: '-', value: r})
 			}
 		}
-		return pairs;
+		return pairs
 	},
-});
+})
